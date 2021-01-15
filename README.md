@@ -30,3 +30,5 @@ conda env list
 ***
 **Используемые материалы**
 1. [Mask-RCNN and COCO transfer learning LB:0.155](https://www.kaggle.com/hmendonca/mask-rcnn-and-coco-transfer-learning-lb-0-155)
+2. [R-CNN – Neural Network for Object Detection and Semantic Segmentation](https://neurohive.io/en/popular-networks/r-cnn/)
+3. [The complete PyQt5 tutorial — Create GUI applications with Python](https://www.learnpyqt.com/)
