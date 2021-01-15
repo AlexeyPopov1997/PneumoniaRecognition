@@ -67,9 +67,8 @@ class InferenceConfig(DetectorConfig):
 
 
 class Model:
-    ROOT_DIR = '/home/ubuntu18/STUDY/DT_IT_Solutions_[Corporate_Cource]/PneumoniaDetection/working'
-    MODEL_PATH = "/home/ubuntu18//STUDY/DT_IT_Solutions_[Corporate_Cource]/PneumoniaDetection/working/" \
-                 "pneumonia20201217T0225/mask_rcnn_pneumonia_0002.h5"
+    ROOT_DIR = 'model/working'
+    MODEL_PATH = 'model/working/pneumonia20201217T0225/mask_rcnn_pneumonia_0002.h5'
     config = DetectorConfig()
 
     @staticmethod
