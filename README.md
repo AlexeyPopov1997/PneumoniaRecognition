@@ -3,7 +3,7 @@
 
 Приложение выполнено в рамках курса **Интеграция данных в информационных системах** в качестве курсового проекта по направлению **Image Recognition**.
 
-При создании модели для определения пневмонии использовалась сверточная нейронная сеть **[Mask R-CNN](https://github.com/matterport/Mask_RCNN)**. 
+При создании модели для определения пневмонии использовалась модель **[Mask R-CNN](https://github.com/matterport/Mask_RCNN)**. 
 
 Реализация нашей модели и ее описание находится в здесь **[model/PneumoniaDetection.ipynb](https://github.com/AlexeyPopov1997/PneumoniaRecognition/blob/main/model/PneumoniaDetection.ipynb)**.
 
@@ -28,6 +28,13 @@ conda activate PneumoniaRecognition
 conda env list
 ```
 ***
+
+4. Запустите приложение:
+```sh
+python main.py
+```
+***
+
 **Используемые материалы**
 1. [Mask-RCNN and COCO transfer learning LB:0.155](https://www.kaggle.com/hmendonca/mask-rcnn-and-coco-transfer-learning-lb-0-155)
 2. [R-CNN – Neural Network for Object Detection and Semantic Segmentation](https://neurohive.io/en/popular-networks/r-cnn/)

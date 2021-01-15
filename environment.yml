@@ -20,4 +20,8 @@ dependencies:
   - pydicom=2.1.2
   - simpleitk=2.0.2
   - tensorflow=1.15.0rc2
+  - imgaug=0.4.0
+  - tqdm=4.56.0
+  - pandas=1.2.0
+  - scikit-learn=0.23.2
 prefix: '/home/ubuntu18/STUDY/PneumoniaRecognition'
