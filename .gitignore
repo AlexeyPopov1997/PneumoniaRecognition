@@ -4,7 +4,8 @@ __pycache__
 *.iml
 
 # Ignore images files
-*.dcm
+model/data/stage_2_train_images/*.dcm
+model/data/stage_2_test_images/*.dcm
 
 # Ignore temp image file
-.temp/*
+.temp
