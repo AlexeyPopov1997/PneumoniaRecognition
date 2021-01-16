@@ -5,6 +5,8 @@
 
 При создании модели для определения пневмонии использовалась модель **[Mask R-CNN](https://github.com/matterport/Mask_RCNN)**. 
 
+Набор данных взят отсюда **[RSNA Pneumonia Detection Challenge](https://www.kaggle.com/c/rsna-pneumonia-detection-challenge)**.
+
 Реализация нашей модели и ее описание находится в здесь **[model/PneumoniaDetection.ipynb](https://github.com/AlexeyPopov1997/PneumoniaRecognition/blob/main/model/PneumoniaDetection.ipynb)**.
 
 ![readme](https://github.com/AlexeyPopov1997/PneumoniaRecognition/blob/main/figures/readme.gif?raw=true)
