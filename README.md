@@ -16,7 +16,7 @@ git clone https://github.com/AlexeyPopov1997/PneumoniaRecognition.git
 ```
 2. Скачать модель по ссылке
 **[pneumonia20201217T0225](https://drive.google.com/drive/folders/1d8gfDlsQd6GB01qbXbT_fk2c9JP4mR6e?usp=sharing)**
-   и скопировать модель в папку `model/working/pneumonia20201217T0225`
+   и скопировать модель в папку **[model/working/pneumonia20201217T0225](https://github.com/AlexeyPopov1997/PneumoniaRecognition/tree/main/model/working/pneumonia20201217T0225)**
 
 
 3. Далее создайте виртуальное окружение, используя файл **[environment.yml](https://github.com/AlexeyPopov1997/PneumoniaRecognition/blob/main/environment.yml)** (**Не забудьте изменить `prefix` в файле!**):
@@ -36,7 +36,6 @@ conda activate PneumoniaRecognition
 ```sh
 conda env list
 ```
-***
 
 6. Запустите приложение:
 ```sh
