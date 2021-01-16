@@ -10,26 +10,35 @@
 ![readme](https://github.com/AlexeyPopov1997/PneumoniaRecognition/blob/main/figures/readme.gif?raw=true)
 
 ### Создание и установка виртуальной среды
-1. Я предлагаю создать виртуальное огружегие, используя файл **[environment.yml](https://github.com/AlexeyPopov1997/PneumoniaRecognition/blob/main/environment.yml)** (**Не забудьте изменить `prefix` в файле!**):
+1. Так как GitHub не позволяет пушить файлы размером более 100 МБ, для работы с приложением я предлагаю клонировать репозиторий себе на машину:
+```sh
+git clone https://github.com/AlexeyPopov1997/PneumoniaRecognition.git
+```
+2. Скачать модель по ссылке
+**[pneumonia20201217T0225](https://drive.google.com/drive/folders/1d8gfDlsQd6GB01qbXbT_fk2c9JP4mR6e?usp=sharing)**
+   и скопировать модель в папку `model/working/pneumonia20201217T0225`
+
+
+3. Далее создайте виртуальное окружение, используя файл **[environment.yml](https://github.com/AlexeyPopov1997/PneumoniaRecognition/blob/main/environment.yml)** (**Не забудьте изменить `prefix` в файле!**):
 ```sh
 conda env create -f environment.yml
 ```
 Первая строка файла `environment.yml` устанавливает имя окружения.
 
-2. Активируйте новое окружение:
+4. Активируйте новое окружение:
 
 ```sh
 conda activate PneumoniaRecognition
 ```
 
-3. Убедитесь, что окружение было установлено правильно:
+5. Убедитесь, что окружение было установлено правильно:
 
 ```sh
 conda env list
 ```
 ***
 
-4. Запустите приложение:
+6. Запустите приложение:
 ```sh
 python main.py
 ```
