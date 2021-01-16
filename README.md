@@ -18,6 +18,9 @@ git clone https://github.com/AlexeyPopov1997/PneumoniaRecognition.git
 **[pneumonia20201217T0225](https://drive.google.com/drive/folders/1d8gfDlsQd6GB01qbXbT_fk2c9JP4mR6e?usp=sharing)**
    и скопировать модель в папку **[model/working/pneumonia20201217T0225](https://github.com/AlexeyPopov1997/PneumoniaRecognition/tree/main/model/working/pneumonia20201217T0225)**
 
+***
+*При желании, вы без труда можете создать свою модель, воспользовавшись **[model/PneumoniaDetection.ipynb](https://github.com/AlexeyPopov1997/PneumoniaRecognition/blob/main/model/PneumoniaDetection.ipynb)***
+***
 
 3. Далее создайте виртуальное окружение, используя файл **[environment.yml](https://github.com/AlexeyPopov1997/PneumoniaRecognition/blob/main/environment.yml)** (**Не забудьте изменить `prefix` в файле!**):
 ```sh
