@@ -1,6 +1,14 @@
+*.h5
+
+# Ignore __pycache__
+notebook/mrcnn/__pycache__
+
 # Ignore images files
 notebook/data/stage_2_train_images/*.dcm
 notebook/data/stage_2_test_images/*.dcm
 
 # Ignore Mask RCNN model files
 notebook/Mask_RCNN
+
+# Ignore model files
+notebook/working
