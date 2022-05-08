@@ -1,54 +1,99 @@
 import sys
-import platform
+import SimpleITK as sTk
 
-from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtCore import (QCoreApplication, QPropertyAnimation, QDate, QDateTime, QMetaObject, QObject, QPoint, QRect, QSize, QTime, QUrl, Qt, QEvent)
-from PyQt5.QtGui import (QBrush, QColor, QConicalGradient, QCursor, QFont, QFontDatabase, QIcon, QKeySequence, QLinearGradient, QPalette, QPainter, QPixmap, QRadialGradient)
-from PyQt5.QtWidgets import *
+from PyQt5.QtCore import QSize, Qt
+from PyQt5.QtGui import QIcon, QPixmap, QImage
+from PyQt5.QtWidgets import QApplication, QMainWindow, QAction, QFileDialog
 
-# Import GUI
-from ui.main_ui import MainWindowUi
-
-# Import funstions for GUI
-from ui.ui_functions import *
+from viewer import Viewer, AppString
+from pneumonia_detection import Images
+from dicom_image import DicomImage, DisplayImageContainer
 
 
-class MainWindow(QMainWindow):
+class MainUI(object):
     def __init__(self):
-        QMainWindow.__init__(self)
-        self.ui = MainWindowUi()
-        self.ui.setup_ui(self)
+        self.viewer = Viewer(self)
+        self.toolbar = self.addToolBar('ToolBar')
+        self.analyzeBtn = QAction(QIcon('icons/analyze.png'), '', self)
+        self.loadFileBtn = QAction(QIcon('./icons/open.png'), '', self)
+        self.windowWidth = 600
+        self.windowHeight = 650
+        self.windowTitle = AppString.TITLE.value
+        self.windowXPos = 300
+        self.windowYPos = 200
+        self.allowImageType = '(*.dcm)'
 
-        # Move window
-        def moveWindow(event):
-            # Restore before move
-            if UIFunctions.return_status() == 1:
-                UIFunctions.maximize_restore(self)
+    def setup_ui(self):
+        self.loadFileBtn.setIconText(AppString.LOADFILE.value)
+        self.analyzeBtn.setIconText(AppString.SAVE.value)
 
-            # If left click move window
-            if event.buttons() == Qt.LeftButton:
-                self.move(self.pos() + event.globalPos() - self.dragPos)
-                self.dragPos = event.globalPos()
-                event.accept()
+        self.toolbar.setMovable(False)
+        self.toolbar.addActions([self.loadFileBtn, self.analyzeBtn])
 
-        # Set title bar
-        self.ui.title_bar_frame.mouseMoveEvent = moveWindow
+        for action in self.toolbar.actions():
+            widget = self.toolbar.widgetForAction(action)
+            widget.setFixedSize(299, 60)
 
-        # Set taskbar logo
-        self.setWindowIcon(QtGui.QIcon('./icons/taskbar_logo.png'))
+        self.toolbar.setIconSize(QSize(30, 30))
+        self.toolbar.setContextMenuPolicy(Qt.PreventContextMenu)
+        self.toolbar.setToolButtonStyle(Qt.ToolButtonTextUnderIcon | Qt.AlignLeading)
+        self.toolbar.setStyleSheet('QToolBar {padding-right: 30px;}')
 
-        # Set GUI definitions
-        UIFunctions.ui_definitions(self)
+        self.setCentralWidget(self.viewer)
+        self.setGeometry(self.windowXPos, self.windowYPos, self.windowWidth, self.windowHeight)
+        self.setWindowTitle(self.windowTitle)
 
-        # Show main window
+
+class PneumoniaDetection(QMainWindow, MainUI):
+    dicomImage: DicomImage
+
+    def __init__(self):
+        super().__init__()
+        self.setup_ui()
+        self.setMinimumSize(self.windowWidth, self.windowHeight)
+        self.loadFileBtn.triggered.connect(self.open_file_dialogue)
+        self.analyzeBtn.triggered.connect(self.analyze_image)
         self.show()
+        self.setFocus()
+        self.loadImage = None
+        self.dicomImage = None
+        self.imagePath = None
 
-    ## App events
-    def mousePressEvent(self, event):
-        self.dragPos = event.globalPos()
+    def initialize(self):
+        self.loadImage = None
+        self.dicomImage = None
+
+    def open_file_dialogue(self):
+        imagePath, fileType = QFileDialog.getOpenFileName(self, 'Select Image', '',
+                                                          'Image files {}'.format(self.allowImageType),
+                                                          options=QFileDialog.DontUseNativeDialog)
+
+        if imagePath != '':
+            img = sTk.ReadImage(imagePath)
+            img = sTk.IntensityWindowing(img, -1000, 1000, 0, 255)
+            img = sTk.Cast(img, sTk.sitkUInt8)
+            sTk.WriteImage(img, "./.temp/temp.png")
+            rawImage = QImage('./.temp/temp.png')
+
+            self.initialize()
+            self.viewer.initialize()
+            self.loadImage = DisplayImageContainer(rawImage, imagePath)
+            self.dicomImage = DicomImage(rawImage, imagePath)
+            self.viewer.setPixmap(QPixmap.fromImage(rawImage.scaled(self.viewer.width(), self.viewer.height())))
+            self.imagePath = imagePath
+
+    def analyze_image(self):
+        imagePath = Images.analyze_image(self.imagePath)
+        if imagePath != '':
+            rawImage = QImage('./.temp/temp1.png')
+
+            self.initialize()
+            self.viewer.initialize()
+            self.loadImage = DisplayImageContainer(rawImage, imagePath)
+            self.viewer.setPixmap(QPixmap.fromImage(rawImage.scaled(self.viewer.width(), self.viewer.height())))
 
 
-if __name__ == "__main__":
-    application = QApplication(sys.argv)
-    main_window = MainWindow()
-    sys.exit(application.exec_())
+if __name__ == '__main__':
+    app = QApplication(sys.argv)
+    w = PneumoniaDetection()
+    sys.exit(app.exec_())
