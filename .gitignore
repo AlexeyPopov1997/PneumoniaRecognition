@@ -1,3 +1,6 @@
+# Igmore temp files
+.temp
+
 # Ignore __pycache__
 notebook/mrcnn/__pycache__
 src/__pycache__
@@ -5,8 +8,8 @@ src/ui/__pycache__
 src/mrcnn/__pycache__
 
 # Ignore images files
-notebook/data/stage_2_train_images/*.dcm
-notebook/data/stage_2_test_images/*.dcm
+data/stage_2_train_images/*.dcm
+data/stage_2_test_images/*.dcm
 
 # Ignore Mask RCNN model files
 notebook/Mask_RCNN

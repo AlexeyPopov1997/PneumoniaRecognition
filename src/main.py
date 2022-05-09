@@ -14,7 +14,7 @@ class MainUI(object):
     def __init__(self):
         self.viewer = Viewer(self)
         self.toolbar = self.addToolBar('ToolBar')
-        self.analyzeBtn = QAction(QIcon('icons/analyze.png'), '', self)
+        self.analyzeBtn = QAction(QIcon('./icons/analyse.png'), '', self)
         self.loadFileBtn = QAction(QIcon('./icons/open.png'), '', self)
         self.windowWidth = 600
         self.windowHeight = 650
@@ -41,6 +41,7 @@ class MainUI(object):
 
         self.setCentralWidget(self.viewer)
         self.setGeometry(self.windowXPos, self.windowYPos, self.windowWidth, self.windowHeight)
+        self.setWindowIcon(QIcon('icons/taskbar_logo.png'))
         self.setWindowTitle(self.windowTitle)
 
 
