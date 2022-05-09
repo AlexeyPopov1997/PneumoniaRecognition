@@ -5,9 +5,9 @@ from PyQt5.QtWidgets import QLabel
 
 
 class AppString(Enum):
-    TITLE = 'Pneumonia Recognition'
+    TITLE = 'Pneumonia Detector'
     LOADFILE = 'Open Image'
-    SAVE = 'Analyze Image'
+    SAVE = 'Analyse Image'
 
 
 class Viewer(QLabel):

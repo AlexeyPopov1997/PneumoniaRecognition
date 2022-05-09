@@ -3,9 +3,9 @@ import pydicom
 import numpy as np
 import matplotlib.pyplot as plt
 
-from mrcnn import utils
-from mrcnn.config import Config
-from mrcnn import model as model_lib
+from src.mrcnn import utils
+from src.mrcnn.config import Config
+from src.mrcnn import model as model_lib
 
 
 class Images:
@@ -42,7 +42,7 @@ class Images:
                         cv2.FONT_HERSHEY_SIMPLEX, 1, (220, 20, 60), 2)
             inx = inx + 1
 
-        plt.imsave('.temp/temp1.png', image)
+        plt.imsave('.temp_files/temp1.png', image)
 
 
 class DetectorConfig(Config):
@@ -67,8 +67,8 @@ class InferenceConfig(DetectorConfig):
 
 
 class Model:
-    ROOT_DIR = 'model/working'
-    MODEL_PATH = 'model/working/pneumonia20201217T0225/mask_rcnn_pneumonia_0002.h5'
+    ROOT_DIR = 'models'
+    MODEL_PATH = 'models/pneumonia20220510T0028/mask_rcnn_pneumonia_0001.h5'
     config = DetectorConfig()
 
     @staticmethod
