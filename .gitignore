@@ -15,5 +15,9 @@ notebook/Mask_RCNN
 notebook/working
 *.h5
 
-# Ignore temp image file
-.temp
+# Ignore temp files
+.*
+!/.gitignore
+
+# Ignore models
+models
