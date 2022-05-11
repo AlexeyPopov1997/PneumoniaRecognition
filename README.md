@@ -6,7 +6,7 @@ The application was created as part of the Data Integration in Information Syste
 When creating a determining pneumonia model, the **[Mask R-CNN](https://github.com/matterport/Mask_RCNN)** model was used.
 The implementation of the model and its description can be found here: **[model_description.ipynb](https://gitlab.com/AlexeyPopov1997/pneumonia-recognition/-/blob/main/notebook/model_description.ipynb)**.
 
-![readme](/pictures/readme.gif)
+![readme](/docs/pictures/readme.gif)
 
 ## Dataset
 The dataset taken from here: **[RSNA Pneumonia Detection Challenge](https://www.kaggle.com/c/rsna-pneumonia-detection-challenge)**.
