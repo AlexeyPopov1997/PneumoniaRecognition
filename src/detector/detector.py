@@ -4,19 +4,32 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 from src.mrcnn import utils
-from src.mrcnn.config import Config
-from src.mrcnn import model as model_lib
+
+from src.detector.model import Model
 
 
-class Images:
+class Detector:
+    """ Main detector class
+
+    """
+
     ORIG_SIZE = 1024
 
     @staticmethod
-    def analyze_image(image_path):
+    def analyze_image(image_path: str) -> None:
+        """ Main detector class
+
+        Args: 
+            image_path (str): image path
+
+        Returns: None
+
+        """
+
         image_id = image_path
         ds = pydicom.read_file(image_id)
         image = ds.pixel_array
-        resize_factor = Images.ORIG_SIZE / Model.config.IMAGE_SHAPE[0]
+        resize_factor = Detector.ORIG_SIZE / Model.config.IMAGE_SHAPE[0]
 
         if len(image.shape) != 3 or image.shape[2] != 3:
             image = np.stack((image,) * 3, -1)
@@ -42,42 +55,4 @@ class Images:
                         cv2.FONT_HERSHEY_SIMPLEX, 1, (220, 20, 60), 2)
             inx = inx + 1
 
-        plt.imsave('.temp_files/temp1.png', image)
-
-
-class DetectorConfig(Config):
-    NAME = 'pneumonia'
-    GPU_COUNT = 1
-    IMAGES_PER_GPU = 1
-    BACKBONE = 'resnet50'
-    NUM_CLASSES = 2
-    IMAGE_MIN_DIM = 256
-    IMAGE_MAX_DIM = 256
-    TRAIN_ROIS_PER_IMAGE = 32
-    MAX_GT_INSTANCES = 4
-    DETECTION_MAX_INSTANCES = 3
-    DETECTION_MIN_CONFIDENCE = 0.78
-    DETECTION_NMS_THRESHOLD = 0.01
-    STEPS_PER_EPOCH = 200
-
-
-class InferenceConfig(DetectorConfig):
-    GPU_COUNT = 1
-    IMAGES_PER_GPU = 1
-
-
-class Model:
-    ROOT_DIR = 'models'
-    MODEL_PATH = 'models/pneumonia20220510T0028/mask_rcnn_pneumonia_0001.h5'
-    config = DetectorConfig()
-
-    @staticmethod
-    def get_model():
-        inference_config = InferenceConfig()
-
-        model = model_lib.MaskRCNN(mode='inference', config=inference_config, model_dir=Model.ROOT_DIR)
-        assert Model.MODEL_PATH != "", "Provide path to trained weights"
-        model.load_weights(Model.MODEL_PATH, by_name=True)
-        model = model_lib.MaskRCNN(mode='inference', config=inference_config, model_dir=Model.ROOT_DIR)
-        model.load_weights(Model.MODEL_PATH, by_name=True)
-        return model
+        plt.imsave('.temp/temp1.png', image)

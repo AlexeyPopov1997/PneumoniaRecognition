@@ -6,15 +6,19 @@ from PyQt5.QtGui import QIcon, QPixmap, QImage, QFont
 from PyQt5.QtWidgets import QApplication, QMainWindow, QAction, QFileDialog
 
 from src.viewer import Viewer, AppString
-from src.pneumonia_detection import Images
+from src.detector.detector import Detector
 from src.dicom_image import DicomImage, DisplayImageContainer
 
 
 class MainUI(object):
-    def __init__(self):
+    """ Main UI class
+
+    """
+
+    def __init__(self) -> None:
         self.viewer = Viewer(self)
         self.toolbar = self.addToolBar('ToolBar')
-        self.analyzeBtn = QAction(QIcon('./icons/analyse.png'), '', self)
+        self.analyzeBtn = QAction(QIcon('./icons/analyze.png'), '', self)
         self.loadFileBtn = QAction(QIcon('./icons/open.png'), '', self)
         self.windowWidth = 600
         self.windowHeight = 650
@@ -23,7 +27,11 @@ class MainUI(object):
         self.windowYPos = 200
         self.allowImageType = '(*.dcm)'
 
-    def setup_ui(self):
+    def setup_ui(self) -> None:
+        """ Setups UI form
+
+        """
+
         self.loadFileBtn.setIconText(AppString.LOADFILE.value)
         self.analyzeBtn.setIconText(AppString.SAVE.value)
 
@@ -62,10 +70,14 @@ class MainUI(object):
         self.setStyleSheet('background-color: rgb(255, 255, 255)')
 
 
-class PneumoniaDetection(QMainWindow, MainUI):
+class MainApplication(QMainWindow, MainUI):
+    """ Main application class
+
+    """
+
     dicomImage: DicomImage
 
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__()
         self.setup_ui()
         self.setMinimumSize(self.windowWidth, self.windowHeight)
@@ -77,11 +89,27 @@ class PneumoniaDetection(QMainWindow, MainUI):
         self.dicomImage = None
         self.imagePath = None
 
-    def initialize(self):
+    def update(self) -> None:
+        """ Updates application state
+
+        Args: None
+
+        Returns: None
+
+        """
+
         self.loadImage = None
         self.dicomImage = None
 
-    def open_file_dialogue(self):
+    def open_file_dialogue(self) -> None:
+        """ Broweses image files
+
+        Args: None
+
+        Returns: None
+
+        """
+
         imagePath, fileType = QFileDialog.getOpenFileName(self, 'Select Image', '',
                                                           'Image files {}'.format(self.allowImageType),
                                                           options=QFileDialog.DontUseNativeDialog)
@@ -90,28 +118,36 @@ class PneumoniaDetection(QMainWindow, MainUI):
             img = sTk.ReadImage(imagePath)
             img = sTk.IntensityWindowing(img, -1000, 1000, 0, 255)
             img = sTk.Cast(img, sTk.sitkUInt8)
-            sTk.WriteImage(img, "./.temp_files/temp.png")
-            rawImage = QImage('./.temp_files/temp.png')
+            sTk.WriteImage(img, "./.temp/temp.png")
+            rawImage = QImage('./.temp/temp.png')
 
-            self.initialize()
-            self.viewer.initialize()
+            self.update()
+            self.viewer.update()
             self.loadImage = DisplayImageContainer(rawImage, imagePath)
             self.dicomImage = DicomImage(rawImage, imagePath)
             self.viewer.setPixmap(QPixmap.fromImage(rawImage.scaled(self.viewer.width(), self.viewer.height())))
             self.imagePath = imagePath
 
-    def analyze_image(self):
-        imagePath = Images.analyze_image(self.imagePath)
-        if imagePath != '':
-            rawImage = QImage('./.temp_files/temp1.png')
+    def analyze_image(self) -> None:
+        """ Searches pneumonia on image
 
-            self.initialize()
-            self.viewer.initialize()
+        Args: None
+
+        Returns: None
+
+        """
+
+        imagePath = Detector.analyze_image(self.imagePath)
+        if imagePath != '':
+            rawImage = QImage('./.temp/temp1.png')
+
+            self.update()
+            self.viewer.update()
             self.loadImage = DisplayImageContainer(rawImage, imagePath)
             self.viewer.setPixmap(QPixmap.fromImage(rawImage.scaled(self.viewer.width(), self.viewer.height())))
 
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    w = PneumoniaDetection()
+    window = MainApplication()
     sys.exit(app.exec_())
