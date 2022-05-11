@@ -4,7 +4,7 @@
 The application was created as part of the Data Integration in Information Systems Course.
 
 When creating a determining pneumonia model, the **[Mask R-CNN](https://github.com/matterport/Mask_RCNN)** model was used.
-The implementation of the model and its description can be found here: **[model_description.ipynb](https://gitlab.com/AlexeyPopov1997/pneumonia-recognition/-/blob/main/notebook/model_description.ipynb)**.
+The implementation of the model and its description can be found here: **[model_description.ipynb](/notebooks/model_description.ipynb)**.
 
 ![readme](/docs/pictures/readme.gif)
 
@@ -20,10 +20,10 @@ git clone https://gitlab.com/AlexeyPopov1997/pneumonia-recognition.git
 3. Copy model to folder: **???**
 
 ***
-*If you wish, you can easily create your own model using **[model_description.ipynb](https://gitlab.com/AlexeyPopov1997/pneumonia-recognition/-/blob/main/notebook/model_description.ipynb)***
+*If you wish, you can easily create your own model using **[model_description.ipynb](/notebooks/model_description.ipynb)***
 ***
 
-4. Next, create a virtual environment using the file **[environment.yml](https://gitlab.com/AlexeyPopov1997/pneumonia-recognition/-/blob/main/environment.yml)** (**Don't forgive to change `prefix` in the file!**):
+4. Next, create a virtual environment using the file **[environment.yml](/environment.yml)** (**Don't forgive to change `prefix` in the file!**):
 ```sh
 conda env create -f environment.yml
 ```
