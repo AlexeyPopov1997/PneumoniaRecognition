@@ -9,7 +9,7 @@ class Model:
     """
 
     ROOT_DIR = 'models'
-    MODEL_PATH = 'models/pneumonia20220510T0028/mask_rcnn_pneumonia_0001.h5'
+    MODEL_PATH = 'models/pneumonia20220511T2347/mask_rcnn_pneumonia_0018.h5'
     config = DetectorConfig()
 
     @staticmethod

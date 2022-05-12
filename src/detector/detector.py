@@ -49,10 +49,10 @@ class Detector:
             y1 = int(bbox[0] * resize_factor)
             x2 = int(bbox[3] * resize_factor)
             y2 = int(bbox[2] * resize_factor)
-            cv2.rectangle(image, (x1, y1), (x2, y2), (220, 20, 60), 3, 1)
+            cv2.rectangle(image, (x1, y1), (x2, y2), (84, 78, 245), 2, 1)
 
             cv2.putText(image, 'pneumonia: ' + str(round(r['scores'][inx], 3)), (x1, y1-5),
-                        cv2.FONT_HERSHEY_SIMPLEX, 1, (220, 20, 60), 2)
+                        cv2.FONT_HERSHEY_SIMPLEX, 1, (239, 78, 245), 2)
             inx = inx + 1
 
         plt.imsave('.temp/temp1.png', image)
